@@ -19,6 +19,11 @@
 
 
 /**
+ * Wait for the browser to handle pending events.
+ */
+const sync = () => new Promise(resolve => setTimeout(resolve, 0));
+
+/**
  * Set the value of a dropdown to a specified option by its visible text.
  * @param {string} selectId - The ID of the <select> element.
  * @param {string} optionText - The visible text of the desired option.
@@ -37,7 +42,7 @@ async function setDropdownValueByText(selectId, optionText) {
     selectElement.selectedIndex = option.index; // Set the value
     // Trigger a change event
     selectElement.dispatchEvent(new Event('change'));
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await sync();
     console.log(`Set the select value to "${option.value} for "${optionText}".`);
   } else {
     console.error(`Option "${optionText}" not found in #${selectId}`);
@@ -63,9 +68,9 @@ async function setInputValue(parentId, inputId, value) {
 
     // Trigger an input event to notify the application (if required)
     inputElement.dispatchEvent(new Event('change', { bubbles: true }));
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await sync();
     inputElement.blur();
-    await new Promise(resolve => setTimeout(resolve, 0));
+    await sync();
 
     console.log(`Input with ID "${inputId}" set to "${value}".`);
   } else {
@@ -81,7 +86,7 @@ async function setInputValue(parentId, inputId, value) {
 async function setInvestmentProductMissingData() {
   // Process selected element
   document.querySelector('button.btn.btn-info').click();
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await sync();
 
   // Κατάσταση
   await setDropdownValueByText('metabolhT079-select-input', 'ΑΠΟΚΤΗΣΗ ΣΕ ΠΡΟΗΓΟΥΜΕΝΗ ΧΡΗΣΗ');
@@ -91,21 +96,21 @@ async function setInvestmentProductMissingData() {
 
   // Προέλευση
   document.querySelector('#metoxhProeleyshT077Collection-base-table p.h8.mb-0').click();
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await sync();
 
   await setDropdownValueByText('proeleueshT011-select-input', 'ΑΛΛΗ ΠΕΡΙΠΤΩΣΗ');
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await sync();
 
   await setInputValue('#create-internal-modal___BV_modal_body_', 'posoCalc-form-input', '0');
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await sync();
 
   document.querySelector('#create-internal-modal___BV_modal_footer_').querySelector('#modal-submit').click()
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await sync();
 
   // Τρόπος κτήσης
   document.querySelector('#troposKthshsT028Collection-base-table p.h8.mb-0').click();
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await sync();
   await setDropdownValueByText('troposKthshs-select-input', 'ΑΓΟΡΑ');
   document.querySelector('#create-internal-modal___BV_modal_footer_').querySelector('#modal-submit').click()
-  await new Promise(resolve => setTimeout(resolve, 0));
+  await sync();
 }

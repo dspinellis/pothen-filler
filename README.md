@@ -1,8 +1,8 @@
 # Pothen-filler
 
 The file `functions.js` contains examples of JavaScript functions that
-may help automate some of the work required for filling the Greek personal
-wealth declaration forms (Πόθεν Έσχες).
+may help automate some of the work required for filling the [Greek personal
+wealth declaration forms (Πόθεν Έσχες)](https://www.pothen.gr/).
 The functions are to be executed from the web browser console,
 after navigating to the corresponding part of the declaration
 and selecting an appropriate element.
@@ -13,10 +13,15 @@ adjustment for individual circumstances.
 
 ## Usage
 
+* Login to the application.
+* Open the browser's JavaScript console.
+* Paste the provided JavaScript functions.
+
 ### Investment products
-After importing the data provided by the banks, select each row of
-the investment products table and run from the browser console
-the function `setInvestmentProductMissingData()`.
+* Import the data provided by the banks.
+* Select each row of the investment products table.
+* Run from the browser console the function `setInvestmentProductMissingData()` to complete missing data,
+  which prevents the form's final submission.
 
 ## License and disclaimer
 Licensed under the Apache License, Version 2.0 (the "License");

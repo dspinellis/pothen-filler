@@ -50,12 +50,13 @@ async function setDropdownValueByText(selectId, optionText) {
 }
 
 /**
- * Set the value of an input field by its ID and triggers an input event.
+ * Set the value of an input field in a given context by its ID
+ * and trigger an input event.
  * @param {string} parentId - The ID of a parent of the input field.
  * @param {string} inputId - The ID of the input field.
  * @param {string|number} value - The value to set.
  */
-async function setInputValue(parentId, inputId, value) {
+async function setChildInputValue(parentId, inputId, value) {
   // Locate the input element by its ID
 
   const parent = document.querySelector(parentId);
@@ -78,7 +79,27 @@ async function setInputValue(parentId, inputId, value) {
   }
 }
 
-/*
+/**
+ * Set the value of an input field by its ID and trigger an input event.
+ * @param {string} inputId - The ID of the input field.
+ * @param {string|number} value - The value to set.
+ */
+async function setInputValue(inputId, value) {
+  // Locate the input element by its ID
+
+  const inputElement = document.getElementById(inputId);
+  // Check if the input element exists
+  if (inputElement) {
+    inputElement.value = value;
+    await sync();
+    inputElement.dispatchEvent(new Event('input', { bubbles: true }));
+    await sync();
+  } else {
+    console.error(`Input element with ID "${inputId}" not found.`);
+  }
+}
+
+/**
  * Fill-in the missing data for investment products uploaded by the banks,
  * namely the fields κατάσταση, μονάδα μέτρησης, τρόπος κτήσης,
  * προέλευση.
@@ -99,10 +120,8 @@ async function setInvestmentProductMissingData() {
   await sync();
 
   await setDropdownValueByText('proeleueshT011-select-input', 'ΑΛΛΗ ΠΕΡΙΠΤΩΣΗ');
-  await sync();
 
-  await setInputValue('#create-internal-modal___BV_modal_body_', 'posoCalc-form-input', '0');
-  await sync();
+  await setChildInputValue('#create-internal-modal___BV_modal_body_', 'posoCalc-form-input', '0');
 
   document.querySelector('#create-internal-modal___BV_modal_footer_').querySelector('#modal-submit').click()
   await sync();
@@ -110,7 +129,64 @@ async function setInvestmentProductMissingData() {
   // Τρόπος κτήσης
   document.querySelector('#troposKthshsT028Collection-base-table p.h8.mb-0').click();
   await sync();
+
   await setDropdownValueByText('troposKthshs-select-input', 'ΑΓΟΡΑ');
   document.querySelector('#create-internal-modal___BV_modal_footer_').querySelector('#modal-submit').click()
+  await sync();
+}
+
+/**
+ * Format the value as required by the app: with a dot thousands
+ * separator and a comma decimal separator.
+ * @param {number} value - The numeric value to format
+ */
+function formatNumber(value) {
+    const [integer, decimal] = value.toFixed(2).split('.');
+    return integer.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "," + decimal;
+}
+
+/** Add an investment product with the specified parameters */
+async function addInvestmentProduct(investor, other, country, broker, securityType, securityName, isin, quantity, marketValue, currency) {
+  addButton = Array.from(document.querySelectorAll("button"))
+              .find(btn => btn.querySelector("p")?.textContent.trim() === "Προσθήκη");
+  addButton.click();
+  await sync();
+
+  // Επενδυτής
+  await setDropdownValueByText('kodYpoxreouCalc-select-input', investor);
+
+  // Δικαιούχοι
+  await document.getElementById(other).click();
+  await sync();
+
+  // Χώρα
+  await setDropdownValueByText('xoraT057-select-input', country);
+
+  // Χειριστής
+  setInputValue("xeiristhsText-form-input", broker);
+
+  // Είδος
+  await setDropdownValueByText('eidosMetoxhsT022-select-input', securityType);
+
+  // Τίτλος
+  setInputValue("titlosCalc-form-input", securityName);
+
+  // ISIN
+  setInputValue("isinCalc-form-input", isin);
+
+  // Ποσότητα
+  setInputValue("posothtaCalc-form-input", formatNumber(quantity));
+
+  // Αποτίμηση
+  setInputValue("posoCalc-form-input", formatNumber(marketValue));
+  await sync();
+
+  // Νόμισμα
+  await setDropdownValueByText('nomismaT034-select-input', currency);
+
+  await setInvestmentProductMissingData();
+  await sync();
+
+  document.querySelector('#modal-submit').click()
   await sync();
 }

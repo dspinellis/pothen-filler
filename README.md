@@ -17,11 +17,21 @@ adjustment for individual circumstances.
 * Open the browser's JavaScript console.
 * Paste the provided JavaScript functions.
 
-### Investment products
+### Complete existing investment products
 * Import the data provided by the banks.
 * Select each row of the investment products table.
-* Run from the browser console the function `setInvestmentProductMissingData()` to complete missing data,
-  which prevents the form's final submission.
+* Call from the browser console the function `setInvestmentProductMissingData()`
+  to complete missing data, which prevents the form's final submission.
+
+### Add new investment products
+To add a new investment product call from the browser console the function
+`addInvestmentProduct` as in the following example.
+
+```js
+await addInvestmentProduct('Υπόχρεος', 'isTritoi-checkbox-input',
+  'ΕΛΛΑΔΑ', 'Τράπεζα Λιμνούπολης', 'ΜΕΤΟΧΕΣ',
+  'ACME ΑΕ', 'GR00X63SZQ33', 42, 3.14, 'ΕΥΡΩ');
+```
 
 ## License and disclaimer
 Licensed under the Apache License, Version 2.0 (the "License");

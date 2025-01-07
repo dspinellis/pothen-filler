@@ -220,3 +220,45 @@ async function setBankAccountMissingData() {
   document.querySelector('#modal-submit').click()
   await sync();
 }
+
+/** Add an investment product with the specified parameters */
+async function addBankAccount(investor, other, accountType, numberOfHolders, country, bankName, iban, marketValue, currency) {
+  addButton = Array.from(document.querySelectorAll("button"))
+              .find(btn => btn.querySelector("p")?.textContent.trim() === "Προσθήκη");
+  addButton.click();
+  await sync();
+
+  // Δικαιούχος
+  await setDropdownValueByText('kodYpoxreouCalc-select-input', investor);
+
+  // Δικαιούχοι
+  await document.getElementById(other).click();
+  await sync();
+
+  // Είδος
+  await setDropdownValueByText('eidosKataueshsT039-select-input', accountType);
+
+  // Πλήθος Δικ/χων Λογαριασμού
+  setInputValue("plhuosSyndikCalc-form-input", numberOfHolders);
+
+  // Χώρα
+  await setDropdownValueByText('xoraT057-select-input', country);
+
+  // Χρηματοπιστωτικό Ίδρυμα
+  setInputValue("trapezaText-form-input", bankName);
+
+  // IBAN
+  setInputValue("ibanDecr-form-input", iban);
+
+  //  Υπόλοιπο Λογαριασμού/Κατάθεσης
+  setInputValue("posoCalc-form-input", formatNumber(marketValue));
+
+  // Νόμισμα
+  await setDropdownValueByText('nomismaT034-select-input', currency);
+
+  await setBankAccountMissingData();
+  await sync();
+
+  document.querySelector('#modal-submit').click()
+  await sync();
+}

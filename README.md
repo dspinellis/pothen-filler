@@ -16,6 +16,9 @@ adjustment for individual circumstances.
 * Login to the application.
 * Open the browser's JavaScript console.
 * Paste the provided JavaScript functions.
+* Proceed according to the required tasks, as detailed below.
+* Edit the entered records providing additional data and correcting
+  existing ones as required.
 
 ### Complete existing investment products
 * Import the data provided by the banks.
@@ -37,6 +40,16 @@ await addInvestmentProduct('Υπόχρεος', 'isTritoi-checkbox-input',
 * Select each row of the bank accounts table.
 * Call from the browser console the function `setBankAccountMissingData()`
   to complete missing data, which prevents the form's final submission.
+
+### Add new bank accounts
+To add a new bank account call from the browser console the function
+`addBankAccount` as in the following example.
+
+```js
+await addBankAccount('Υπόχρεος', 'isTritoi-checkbox-input',
+  'ΤΡΕΧΟΥΜΕΝΟΣ / ΟΨΕΩΣ / ΤΑΜΙΕΥΤΗΡΙΟΥ', 2, 'ΛΙΘΟΥΑΝΙΑ', 'Revolut',
+  '1234', 3.14, 'ΕΥΡΩ')
+```
 
 ## License and disclaimer
 Licensed under the Apache License, Version 2.0 (the "License");

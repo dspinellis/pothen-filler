@@ -190,3 +190,33 @@ async function addInvestmentProduct(investor, other, country, broker, securityTy
   document.querySelector('#modal-submit').click()
   await sync();
 }
+
+/**
+ * Fill-in the missing data for bank accounts uploaded by the banks,
+ * namely the field προέλευση.
+ */
+async function setBankAccountMissingData() {
+  // Process selected element
+  document.querySelector('button.btn.btn-info').click();
+  await sync();
+
+  // Existing amount
+  const amount = document.getElementById('posoCalc-form-input').value;
+  console.log(`Existing amount "${amount}".`);
+
+  // Προέλευση
+  document.querySelector('#kataueshProeleyshT081Collection-base-table p.h8.mb-0').click();
+  await sync();
+
+  await setDropdownValueByText('proeleueshT011-select-input', 'ΑΛΛΗ ΠΕΡΙΠΤΩΣΗ');
+
+  // Submit προέλευση modal
+  await setChildInputValue('#create-internal-modal___BV_modal_body_', 'posoCalc-form-input', amount);
+
+  // Submit account modal
+  document.querySelector('#create-internal-modal___BV_modal_footer_').querySelector('#modal-submit').click()
+  await sync();
+
+  document.querySelector('#modal-submit').click()
+  await sync();
+}

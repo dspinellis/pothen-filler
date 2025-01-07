@@ -32,6 +32,11 @@ await addInvestmentProduct('Υπόχρεος', 'isTritoi-checkbox-input',
   'ΕΛΛΑΔΑ', 'Τράπεζα Λιμνούπολης', 'ΜΕΤΟΧΕΣ',
   'ACME ΑΕ', 'GR00X63SZQ33', 42, 3.14, 'ΕΥΡΩ');
 ```
+### Complete missing bank account data
+* Import the data provided by the banks.
+* Select each row of the bank accounts table.
+* Call from the browser console the function `setBankAccountMissingData()`
+  to complete missing data, which prevents the form's final submission.
 
 ## License and disclaimer
 Licensed under the Apache License, Version 2.0 (the "License");

@@ -23,8 +23,9 @@ adjustment for individual circumstances.
 ### Complete existing investment products
 * Import the data provided by the banks.
 * Select each row of the investment products table.
-* Call from the browser console the function `setInvestmentProductMissingData()`
-  to complete missing data, which prevents the form's final submission.
+* Call from the browser console the function
+  `setBankInvestmentProductMissingData()` to complete missing data,
+  which prevents the form's final submission.
 
 ### Add new investment products
 To add a new investment product call from the browser console the function

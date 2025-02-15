@@ -100,7 +100,7 @@ async function setInputValue(inputId, value) {
 }
 
 /**
- * Fill-in the missing data for investment products uploaded by the banks,
+ * Fill-in the missing data for investment products of a selected entry,
  * namely the fields κατάσταση, μονάδα μέτρησης, τρόπος κτήσης,
  * προέλευση.
  */
@@ -132,6 +132,19 @@ async function setInvestmentProductMissingData() {
 
   await setDropdownValueByText('troposKthshs-select-input', 'ΑΓΟΡΑ');
   document.querySelector('#create-internal-modal___BV_modal_footer_').querySelector('#modal-submit').click()
+  await sync();
+}
+
+/**
+ * Fill-in the missing data for investment products uploaded by the banks,
+ * namely the fields κατάσταση, μονάδα μέτρησης, τρόπος κτήσης,
+ * προέλευση.
+ */
+async function setBankInvestmentProductMissingData() {
+  await setInvestmentProductMissingData();
+  await sync();
+
+  document.querySelector('#modal-submit').click()
   await sync();
 }
 
